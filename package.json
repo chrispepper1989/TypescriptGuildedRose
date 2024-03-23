@@ -4,13 +4,13 @@
   "description": "Gilded Rose kata in TypeScript",
   "scripts": {
     "dev": "ts-node test/golden-master-text-test.ts 10",
-    "precompile": "rimraf src/**/*.js test/**/*.js",
+    "precompile": "rimraf --glob src/**/*.js test/**/*.js",
     "compile": "tsc",
-    "pretest": "rimraf src/**/*.js test/**/*.js",
-    "test:jest": "jest",
-    "test:jest:watch": "jest --watchAll",
-    "test:mocha": "nyc mocha",
-    "test:vitest": "vitest --coverage"
+    "pretest": "rimraf --glob src/**/*.js test/**/*.js",
+
+    "test": "jest",
+ 
+    "prepare": "husky"
   },
   "license": "MIT",
   "private": true,
@@ -21,10 +21,11 @@
     "@types/node": "^18.14.0",
     "@vitest/coverage-istanbul": "^0.28.5",
     "chai": "^4.3.4",
+    "husky": "^9.0.11",
     "jest": "^29.4.3",
     "mocha": "^10.2.0",
     "nyc": "~15.1.0",
-    "rimraf": "^4.1.2",
+    "rimraf": "^4.2.0",
     "source-map-support": "^0.5.20",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
