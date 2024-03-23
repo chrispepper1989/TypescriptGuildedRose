@@ -1,11 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Gilded Rose Approval (individual tests) Items should contain foo 1`] = `
+[
+  Item {
+    "name": "foo",
+    "quality": 0,
+    "sellIn": -1,
+  },
+]
+`;
+
+exports[`Gilded Rose Approval (individual tests) Items should contain foo if I add foo, sell in and quantity should not change 1`] = `
+[
+  Item {
+    "name": "foo",
+    "quality": 0,
+    "sellIn": -2,
+  },
+]
+`;
+
 exports[`Gilded Rose Approval should foo 1`] = `
 [
   Item {
     "name": "foo",
     "quality": 0,
     "sellIn": -1,
+  },
+]
+`;
+
+exports[`Items should contain foo 1`] = `
+[
+  Item {
+    "name": "foo",
+    "quality": 0,
+    "sellIn": -1,
+  },
+]
+`;
+
+exports[`Items should contain foo if I add foo, sell in and quantity should not change 1`] = `
+[
+  Item {
+    "name": "foo",
+    "quality": 0,
+    "sellIn": -2,
   },
 ]
 `;

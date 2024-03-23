@@ -9,16 +9,27 @@ import { Item, GildedRose } from '@/gilded-rose';
  *
  * I suggest choosing one style to develop and deleting the other.
  */
+describe('Gilded Rose Approval (individual tests)', () => {
 
-describe('Gilded Rose Approval (individual coverage)', () => {
+describe('Items', () => {
   /*this test is useful for individual coverage*/
-  it('should foo', () => {
+  it('should contain foo if I add foo, sell in and quantity should not change', () => {
+    const gildedRose = new GildedRose([new Item('foo', 0, 0)]);
+    const items = gildedRose.updateQuality();
+    gildedRose.updateQuality();
+    expect(items).toMatchSnapshot();
+
+  });
+  /*this test is useful for individual coverage*/
+  it('should contain foo', () => {
     const gildedRose = new GildedRose([new Item('foo', 0, 0)]);
     const items = gildedRose.updateQuality();
 
     expect(items).toMatchSnapshot();
   });
-})
+})});
+
+
 
 describe('Gilded Rose Approval (full output test)', () => {
 
