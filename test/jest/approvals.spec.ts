@@ -10,7 +10,17 @@ import { Item, GildedRose } from '@/gilded-rose';
  * I suggest choosing one style to develop and deleting the other.
  */
 
-describe('Gilded Rose Approval', () => {
+describe('Gilded Rose Approval (individual coverage)', () => {
+  /*this test is useful for individual coverage*/
+  it('should foo', () => {
+    const gildedRose = new GildedRose([new Item('foo', 0, 0)]);
+    const items = gildedRose.updateQuality();
+
+    expect(items).toMatchSnapshot();
+  });
+})
+
+describe('Gilded Rose Approval (full output test)', () => {
 
   let gameConsoleOutput: string;
   let originalConsoleLog: (message: any) => void;
@@ -36,14 +46,11 @@ describe('Gilded Rose Approval', () => {
     console.log = originalConsoleLog;
     process.argv = originalProcessArgv;
   });
-
-  it('should foo', () => {
-    const gildedRose = new GildedRose([new Item('foo', 0, 0)]);
-    const items = gildedRose.updateQuality();
   
-    expect(items).toMatchSnapshot();
-  });
 
+  /* this test tests the whole output
+    This is useful as a complete e2e test
+   */
   it('should thirtyDays', () => {
     process.argv = ["<node>", "<script", "30"];
     require('../golden-master-text-test.ts');
