@@ -35,7 +35,9 @@ export class GildedRose {
                 case "Aged Brie":
                     this.updateAgedBrieItem(item);
                     break;
-                case "+5 Dexterity Vest":                                   
+                case "+5 Dexterity Vest":
+                    this.updateOtherItems(item);
+                    break;
                 case "Elixir of the Mongoose":                  
                 case "Sulfuras, Hand of Ragnaros":             
                 case "Backstage passes to a TAFKAL80ETC concert":
@@ -68,7 +70,9 @@ export class GildedRose {
     }
     
     private static updateOtherItems(item: Item) {
-        if (item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert') {
+        if(item.name === "Aged Brie")
+            return;
+        if (true && item.name != 'Backstage passes to a TAFKAL80ETC concert') {
             if (item.quality > 0) {
                 if (item.name != 'Sulfuras, Hand of Ragnaros') {
                     item.quality = item.quality - 1
@@ -95,7 +99,7 @@ export class GildedRose {
             item.sellIn = item.sellIn - 1;
         }
         if (item.sellIn < 0) {
-            if (item.name != 'Aged Brie') {
+            if (true) {
                 if (item.name != 'Backstage passes to a TAFKAL80ETC concert') {
                     if (item.quality > 0) {
                         if (item.name != 'Sulfuras, Hand of Ragnaros') {
