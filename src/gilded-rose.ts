@@ -34,13 +34,12 @@ export class GildedRose {
             switch (item.name) {
                 case "Aged Brie":
                     this.updateAgedBrie(item);
-                    break;              
-                case "+5 Dexterity Vest":
-                    this.updateExterityVest(item);
                     break;
                 case "Elixir of the Mongoose":
-                    this.updateElixerOfMongoose(item);
+                case "+5 Dexterity Vest":
+                    this.updateExterityAndDexterityVest(item);
                     break;
+             
                 case "Sulfuras, Hand of Ragnaros":
                 case "Backstage passes to a TAFKAL80ETC concert":
                 case "Conjured Mana Cake":
@@ -101,7 +100,7 @@ export class GildedRose {
         }
     }
 
-    private static updateExterityVest(item: Item) {
+    private static updateExterityAndDexterityVest(item: Item) {
         if (item.quality > 0) {
             item.quality = item.quality - 1
         }
