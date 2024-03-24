@@ -43,23 +43,7 @@ export class GildedRose {
              
                
                 case "Backstage passes to a TAFKAL80ETC concert":
-                    if (item.quality < 50) {
-                        item.quality = item.quality + 1
-                        if (item.sellIn < 11) {
-                            if (item.quality < 50) {
-                                item.quality = item.quality + 1
-                            }
-                        }
-                        if (item.sellIn < 6) {
-                            if (item.quality < 50) {
-                                item.quality = item.quality + 1
-                            }
-                        }
-                    }
-                    item.sellIn = item.sellIn - 1;
-                    if (item.sellIn < 0) {
-                        item.quality = item.quality - item.quality
-                    }
+                    this.updateBackStagePass(item);
                     break
                 case "Sulfuras, Hand of Ragnaros":
                 default:
@@ -71,7 +55,26 @@ export class GildedRose {
         return items;
     }
 
-   
+
+    private static updateBackStagePass(item: Item) {
+        if (item.quality < 50) {
+            item.quality = item.quality + 1
+            if (item.sellIn < 11) {
+                if (item.quality < 50) {
+                    item.quality = item.quality + 1
+                }
+            }
+            if (item.sellIn < 6) {
+                if (item.quality < 50) {
+                    item.quality = item.quality + 1
+                }
+            }
+        }
+        item.sellIn = item.sellIn - 1;
+        if (item.sellIn < 0) {
+            item.quality = item.quality - item.quality
+        }
+    }
 
     private static updateExterityAndDexterityVest(item: Item) {
         if (item.quality > 0) {
@@ -85,10 +88,7 @@ export class GildedRose {
         }
     }
 
-    private static updateAgedBrie(item: Item) {
-        if(item.name !== "Aged Brie")
-            return;
-        
+    private static updateAgedBrie(item: Item) {          
         
         if (item.quality < 50) {
             item.quality = item.quality + 1            
