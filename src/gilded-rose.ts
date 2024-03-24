@@ -35,6 +35,7 @@ export class GildedRose {
                 case "Aged Brie":
                     this.updateAgedBrie(item);
                     break;
+                case "Conjured Mana Cake":
                 case "Elixir of the Mongoose":
                 case "+5 Dexterity Vest":
                     this.updateExterityAndDexterityVest(item);
@@ -42,7 +43,7 @@ export class GildedRose {
              
                 case "Sulfuras, Hand of Ragnaros":
                 case "Backstage passes to a TAFKAL80ETC concert":
-                case "Conjured Mana Cake":
+                
                 default: //all other items
                     if (item.name != 'Backstage passes to a TAFKAL80ETC concert') {
                         if (item.quality > 0) {
