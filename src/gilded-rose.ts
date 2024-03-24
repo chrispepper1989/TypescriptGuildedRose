@@ -26,10 +26,10 @@ export class GildedRose {
     }
     
     updateQuality() {
-        return this.updateItemsQuality(this.items);
+        return GildedRose.updateItemsQuality(this.items);
     }
 
-    private updateItemsQuality(items:Item[]) {
+    private static updateItemsQuality(items:Item[]) {
         items.forEach(item => {
             if (item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert') {
                 if (item.quality > 0) {
@@ -76,6 +76,6 @@ export class GildedRose {
             }
         });
 
-        return this.items;
+        return items;
     }
 }
