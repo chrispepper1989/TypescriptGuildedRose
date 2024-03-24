@@ -12,61 +12,27 @@ import { Item, GildedRose } from '@/gilded-rose';
 describe('Gilded Rose Approval (individual tests)', () => {
 
 describe('Items', () => {
-  /*this test is useful for individual coverage*/
-  it('should contain foo if I add foo, sell in and quantity should not change', () => {
-    const gildedRose = new GildedRose([new Item('foo', 0, 0)]);
-    const items = gildedRose.updateQuality();
-    gildedRose.updateQuality();
-    expect(items).toMatchSnapshot();
+ 
+  /* coverage for all known items over 30 days*/
+  test.each([10,30,40])
+  ('when given all the known items over %p days, return items based on current rules  ', (days:number) => {
 
-  });
-  /*this test is useful for individual coverage*/
-  it('should contain foo', () => {
-    const gildedRose = new GildedRose([new Item('foo', 0, 0)]);
-    const items = gildedRose.updateQuality();
-
-    expect(items).toMatchSnapshot();
+    const sentItems = [
+      new Item("+5 Dexterity Vest", 10, 20), //
+      new Item("Aged Brie", 2, 0), //
+      new Item("Elixir of the Mongoose", 5, 7), //
+      new Item("Sulfuras, Hand of Ragnaros", 0, 80), //
+      new Item("Sulfuras, Hand of Ragnaros", -1, 80),
+      new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
+      new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
+      new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49)]
+    
+    const gildedRose = new GildedRose(sentItems);
+    
+    Array.from({ length: days }, x => gildedRose.updateQuality())
+    
+    const finalItems = gildedRose.updateQuality();
+    expect(finalItems).toMatchSnapshot();
   });
 })});
 
-
-
-describe('Gilded Rose Approval (full output test)', () => {
-
-  let gameConsoleOutput: string;
-  let originalConsoleLog: (message: any) => void;
-  let originalProcessArgv: string[]
-
-  function gameConsoleLog(msg: string) {
-    if (msg) {
-      gameConsoleOutput += msg;
-    }
-    gameConsoleOutput += "\n";
-  }
-
-  beforeEach(() => {
-    // prepare capturing console.log to our own gameConsoleLog.
-    gameConsoleOutput = "";
-    originalConsoleLog = console.log;
-    console.log = gameConsoleLog;
-    originalProcessArgv = process.argv;
-  });
-
-  afterEach(() => {
-    // reset original console.log
-    console.log = originalConsoleLog;
-    process.argv = originalProcessArgv;
-  });
-  
-
-  /* this test tests the whole output
-    This is useful as a complete e2e test
-   */
-  it('should thirtyDays', () => {
-    process.argv = ["<node>", "<script", "30"];
-    require('../golden-master-text-test.ts');
-       
-    expect(gameConsoleOutput).toMatchSnapshot();
-  });
-
-});
