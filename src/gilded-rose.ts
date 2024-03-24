@@ -31,10 +31,19 @@ export class GildedRose {
 
     private static updateItemsQuality(items:Item[]) {
         items.forEach(item => {
-            if(item.name === "Aged Brie")
-                this.updateAgedBrieItem(item);
-            else
-                this.updateOtherItems(item);
+            switch (item.name) {
+                case "Aged Brie":
+                    this.updateAgedBrieItem(item);
+                    break;
+                case "+5 Dexterity Vest":                                   
+                case "Elixir of the Mongoose":                  
+                case "Sulfuras, Hand of Ragnaros":             
+                case "Backstage passes to a TAFKAL80ETC concert":
+                case "Conjured Mana Cake":
+                default:
+                    this.updateOtherItems(item);
+                    break;
+            }
         });
 
         return items;
@@ -44,12 +53,11 @@ export class GildedRose {
         if(item.name !== "Aged Brie")
             return;
         
-     
+        
         if (item.quality < 50) {
             item.quality = item.quality + 1            
         }
-        
-        
+                
         item.sellIn = item.sellIn - 1;
       
         if (item.sellIn < 0) {
