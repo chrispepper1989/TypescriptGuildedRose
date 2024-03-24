@@ -1,17 +1,25 @@
-export type ValidItems = 
-    "+5 Dexterity Vest"
-    | "Aged Brie" 
-    | "Elixir of the Mongoose"
-    |"Sulfuras, Hand of Ragnaros"
-    | "Backstage passes to a TAFKAL80ETC concert"
-    | "Conjured Mana Cake"
+const validItems =
+    <const>["+5 Dexterity Vest"
+    ,"Aged Brie" 
+    ,"Elixir of the Mongoose"
+    ,"Sulfuras, Hand of Ragnaros"
+    ,"Backstage passes to a TAFKAL80ETC concert"
+    ,"Conjured Mana Cake"]
 
+type ValidItem = typeof validItems[number]; 
+
+function isValidItem(str: string): str is ValidItem {
+    return !!validItems.find((lit) => str === lit);
+}
+
+
+// Req: do not alter the Item class or Items (whoops)
 export class Item {
-    name: ValidItems;
+    name: string;
     sellIn: number;
     quality: number;
 
-    constructor(name: ValidItems, sellIn: number, quality: number) {
+    constructor(name: string, sellIn: number, quality: number) {
         this.name = name;
         this.sellIn = sellIn;
         this.quality = quality;
@@ -29,29 +37,35 @@ export class GildedRose {
         return GildedRose.updateItemsQuality(this.items);
     }
 
-    private static updateItemsQuality(items:Item[]) {
-        items.forEach(item => {
-            switch (item.name) {
-                case "Aged Brie":
-                    this.updateAgedBrie(item);
-                    break;
-                case "Conjured Mana Cake":
-                case "Elixir of the Mongoose":
-                case "+5 Dexterity Vest":
-                    this.updateExterityAndDexterityVest(item);
-                    break;
-             
-               
-                case "Backstage passes to a TAFKAL80ETC concert":
-                    this.updateBackStagePass(item);
-                    break
-                case "Sulfuras, Hand of Ragnaros":
-                default:
-                    //all other items, do nothing
-                    
-            }
-        });
 
+    static updateItem(item: Item) {
+        if(!isValidItem(item.name))
+            return;
+        
+        const name:ValidItem = item.name;
+        switch (name) {
+            case "Aged Brie":
+                this.updateAgedBrie(item);
+                break;
+            case "Conjured Mana Cake":
+            case "Elixir of the Mongoose":
+            case "+5 Dexterity Vest":
+                this.updateExterityAndDexterityVest(item);
+                break;
+
+
+            case "Backstage passes to a TAFKAL80ETC concert":
+                this.updateBackStagePass(item);
+                break
+            case "Sulfuras, Hand of Ragnaros":
+            default:
+            //all other items, do nothing
+
+        }
+    }
+    private static updateItemsQuality(items:Item[]) {       
+
+        items.forEach(item => this.updateItem(item));
         return items;
     }
 
@@ -87,7 +101,7 @@ export class GildedRose {
             }
         }
     }
-
+    
     private static updateAgedBrie(item: Item) {          
         
         if (item.quality < 50) {
