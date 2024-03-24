@@ -41,11 +41,7 @@ export class GildedRose {
                     this.updateExterityAndDexterityVest(item);
                     break;
              
-                case "Sulfuras, Hand of Ragnaros":
-                  
-                    
-                    
-                    break;
+               
                 case "Backstage passes to a TAFKAL80ETC concert":
                     if (item.quality < 50) {
                         item.quality = item.quality + 1
@@ -65,8 +61,9 @@ export class GildedRose {
                         item.quality = item.quality - item.quality
                     }
                     break
-                default: //all other items are not supported
-                    throw new Error("Unsupported item")
+                case "Sulfuras, Hand of Ragnaros":
+                default:
+                    //all other items, do nothing
                     
             }
         });
@@ -74,17 +71,7 @@ export class GildedRose {
         return items;
     }
 
-    private static updateElixerOfMongoose(item: Item) {
-        if (item.quality > 0) {
-            item.quality = item.quality - 1
-        }
-        item.sellIn = item.sellIn - 1;
-        if (item.sellIn < 0) {
-            if (item.quality > 0) {
-                item.quality = item.quality - 1
-            }
-        }
-    }
+   
 
     private static updateExterityAndDexterityVest(item: Item) {
         if (item.quality > 0) {
