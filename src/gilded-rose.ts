@@ -79,6 +79,7 @@ export class GildedRose {
                             item.quality = item.quality - item.quality
                         }
                     }
+                    break;
                 case "Backstage passes to a TAFKAL80ETC concert":
                     if (item.name != 'Backstage passes to a TAFKAL80ETC concert') {
                         if (item.quality > 0) {
@@ -103,7 +104,7 @@ export class GildedRose {
                             }
                         }
                     }
-                    if (item.name != 'Sulfuras, Hand of Ragnaros') {
+                    if (true) {
                         item.sellIn = item.sellIn - 1;
                     }
                     if (item.sellIn < 0) {
