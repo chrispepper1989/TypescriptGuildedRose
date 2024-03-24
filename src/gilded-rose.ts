@@ -28,7 +28,7 @@ export class Item {
 
 export class GildedRose {
     items: Array<Item>;
-
+    private static readonly maxQuality = 50;
     constructor(items = [] as Array<Item>) {
         this.items = items;
     }
@@ -71,15 +71,15 @@ export class GildedRose {
 
 
     private static updateBackStagePass(item: Item) {
-        if (item.quality < 50) {
+        if (item.quality < GildedRose.maxQuality) {
             item.quality = item.quality + 1
             if (item.sellIn < 11) {
-                if (item.quality < 50) {
+                if (item.quality < GildedRose.maxQuality) {
                     item.quality = item.quality + 1
                 }
             }
             if (item.sellIn < 6) {
-                if (item.quality < 50) {
+                if (item.quality < GildedRose.maxQuality) {
                     item.quality = item.quality + 1
                 }
             }
@@ -104,14 +104,14 @@ export class GildedRose {
     
     private static updateAgedBrie(item: Item) {          
         
-        if (item.quality < 50) {
+        if (item.quality < GildedRose.maxQuality) {
             item.quality = item.quality + 1            
         }
                 
         item.sellIn = item.sellIn - 1;
       
         if (item.sellIn < 0) {
-            if (item.quality < 50) {
+            if (item.quality < GildedRose.maxQuality) {
                 item.quality = item.quality + 1
             }
         }
