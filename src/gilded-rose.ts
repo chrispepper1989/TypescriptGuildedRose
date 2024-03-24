@@ -34,16 +34,88 @@ export class GildedRose {
             switch (item.name) {
                 case "Aged Brie":
                     this.updateAgedBrieItem(item);
-                    break;
+                    break;              
                 case "+5 Dexterity Vest":
-                    this.updateOtherItems(item);
+                    if (true) {
+                        if (item.quality > 0) {
+                            if (true) {
+                                item.quality = item.quality - 1
+                            }
+                        }
+                    } else {
+                        if (item.quality < 50) {
+                            item.quality = item.quality + 1
+                            if (item.name == 'Backstage passes to a TAFKAL80ETC concert') {
+                                if (item.sellIn < 11) {
+                                    if (item.quality < 50) {
+                                        item.quality = item.quality + 1
+                                    }
+                                }
+                                if (item.sellIn < 6) {
+                                    if (item.quality < 50) {
+                                        item.quality = item.quality + 1
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (true) {
+                        item.sellIn = item.sellIn - 1;
+                    }
+                    if (item.sellIn < 0) {
+                        if (true) {
+                            if (item.quality > 0) {
+                                if (true) {
+                                    item.quality = item.quality - 1
+                                }
+                            }
+                        } else {
+                            item.quality = item.quality - item.quality
+                        }
+                    }
                     break;
-                case "Elixir of the Mongoose":                  
-                case "Sulfuras, Hand of Ragnaros":             
+                case "Elixir of the Mongoose":
+                case "Sulfuras, Hand of Ragnaros":
                 case "Backstage passes to a TAFKAL80ETC concert":
                 case "Conjured Mana Cake":
                 default:
-                    this.updateOtherItems(item);
+                    if (item.name != 'Backstage passes to a TAFKAL80ETC concert') {
+                        if (item.quality > 0) {
+                            if (item.name != 'Sulfuras, Hand of Ragnaros') {
+                                item.quality = item.quality - 1
+                            }
+                        }
+                    } else {
+                        if (item.quality < 50) {
+                            item.quality = item.quality + 1
+                            if (item.name == 'Backstage passes to a TAFKAL80ETC concert') {
+                                if (item.sellIn < 11) {
+                                    if (item.quality < 50) {
+                                        item.quality = item.quality + 1
+                                    }
+                                }
+                                if (item.sellIn < 6) {
+                                    if (item.quality < 50) {
+                                        item.quality = item.quality + 1
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (item.name != 'Sulfuras, Hand of Ragnaros') {
+                        item.sellIn = item.sellIn - 1;
+                    }
+                    if (item.sellIn < 0) {
+                        if (item.name != 'Backstage passes to a TAFKAL80ETC concert') {
+                            if (item.quality > 0) {
+                                if (item.name != 'Sulfuras, Hand of Ragnaros') {
+                                    item.quality = item.quality - 1
+                                }
+                            }
+                        } else {
+                            item.quality = item.quality - item.quality
+                        }
+                    }
                     break;
             }
         });
@@ -65,48 +137,6 @@ export class GildedRose {
         if (item.sellIn < 0) {
             if (item.quality < 50) {
                 item.quality = item.quality + 1
-            }
-        }
-    }
-    
-    private static updateOtherItems(item: Item) {
-        if(item.name === "Aged Brie")
-            return;
-        if (item.name != 'Backstage passes to a TAFKAL80ETC concert') {
-            if (item.quality > 0) {
-                if (item.name != 'Sulfuras, Hand of Ragnaros') {
-                    item.quality = item.quality - 1
-                }
-            }
-        } else {
-            if (item.quality < 50) {
-                item.quality = item.quality + 1
-                if (item.name == 'Backstage passes to a TAFKAL80ETC concert') {
-                    if (item.sellIn < 11) {
-                        if (item.quality < 50) {
-                            item.quality = item.quality + 1
-                        }
-                    }
-                    if (item.sellIn < 6) {
-                        if (item.quality < 50) {
-                            item.quality = item.quality + 1
-                        }
-                    }
-                }
-            }
-        }
-        if (item.name != 'Sulfuras, Hand of Ragnaros') {
-            item.sellIn = item.sellIn - 1;
-        }
-        if (item.sellIn < 0) {
-            if (item.name != 'Backstage passes to a TAFKAL80ETC concert') {
-                if (item.quality > 0) {
-                    if (item.name != 'Sulfuras, Hand of Ragnaros') {
-                        item.quality = item.quality - 1
-                    }
-                }
-            } else {
-                item.quality = item.quality - item.quality
             }
         }
     }
