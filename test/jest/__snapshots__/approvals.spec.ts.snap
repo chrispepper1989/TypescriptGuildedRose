@@ -2,42 +2,42 @@
 
 exports[`Gilded Rose Approval (individual tests) Items when given all the known items over 10 days, return items based on current rules   1`] = `
 [
-  Item {
+  {
     "name": "+5 Dexterity Vest",
     "quality": 8,
     "sellIn": -1,
   },
-  Item {
+  {
     "name": "Aged Brie",
     "quality": 20,
     "sellIn": -9,
   },
-  Item {
+  {
     "name": "Elixir of the Mongoose",
     "quality": 0,
     "sellIn": -6,
   },
-  Item {
+  {
     "name": "Sulfuras, Hand of Ragnaros",
     "quality": 80,
     "sellIn": 0,
   },
-  Item {
+  {
     "name": "Sulfuras, Hand of Ragnaros",
     "quality": 80,
     "sellIn": -1,
   },
-  Item {
+  {
     "name": "Backstage passes to a TAFKAL80ETC concert",
     "quality": 38,
     "sellIn": 4,
   },
-  Item {
+  {
     "name": "Backstage passes to a TAFKAL80ETC concert",
     "quality": 0,
     "sellIn": -1,
   },
-  Item {
+  {
     "name": "Backstage passes to a TAFKAL80ETC concert",
     "quality": 0,
     "sellIn": -6,
@@ -47,42 +47,42 @@ exports[`Gilded Rose Approval (individual tests) Items when given all the known 
 
 exports[`Gilded Rose Approval (individual tests) Items when given all the known items over 30 days, return items based on current rules   1`] = `
 [
-  Item {
+  {
     "name": "+5 Dexterity Vest",
     "quality": 0,
     "sellIn": -21,
   },
-  Item {
+  {
     "name": "Aged Brie",
     "quality": 50,
     "sellIn": -29,
   },
-  Item {
+  {
     "name": "Elixir of the Mongoose",
     "quality": 0,
     "sellIn": -26,
   },
-  Item {
+  {
     "name": "Sulfuras, Hand of Ragnaros",
     "quality": 80,
     "sellIn": 0,
   },
-  Item {
+  {
     "name": "Sulfuras, Hand of Ragnaros",
     "quality": 80,
     "sellIn": -1,
   },
-  Item {
+  {
     "name": "Backstage passes to a TAFKAL80ETC concert",
     "quality": 0,
     "sellIn": -16,
   },
-  Item {
+  {
     "name": "Backstage passes to a TAFKAL80ETC concert",
     "quality": 0,
     "sellIn": -21,
   },
-  Item {
+  {
     "name": "Backstage passes to a TAFKAL80ETC concert",
     "quality": 0,
     "sellIn": -26,
@@ -92,42 +92,42 @@ exports[`Gilded Rose Approval (individual tests) Items when given all the known 
 
 exports[`Gilded Rose Approval (individual tests) Items when given all the known items over 40 days, return items based on current rules   1`] = `
 [
-  Item {
+  {
     "name": "+5 Dexterity Vest",
     "quality": 0,
     "sellIn": -31,
   },
-  Item {
+  {
     "name": "Aged Brie",
     "quality": 50,
     "sellIn": -39,
   },
-  Item {
+  {
     "name": "Elixir of the Mongoose",
     "quality": 0,
     "sellIn": -36,
   },
-  Item {
+  {
     "name": "Sulfuras, Hand of Ragnaros",
     "quality": 80,
     "sellIn": 0,
   },
-  Item {
+  {
     "name": "Sulfuras, Hand of Ragnaros",
     "quality": 80,
     "sellIn": -1,
   },
-  Item {
+  {
     "name": "Backstage passes to a TAFKAL80ETC concert",
     "quality": 0,
     "sellIn": -26,
   },
-  Item {
+  {
     "name": "Backstage passes to a TAFKAL80ETC concert",
     "quality": 0,
     "sellIn": -31,
   },
-  Item {
+  {
     "name": "Backstage passes to a TAFKAL80ETC concert",
     "quality": 0,
     "sellIn": -36,

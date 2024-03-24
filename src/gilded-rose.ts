@@ -6,16 +6,15 @@ export type ValidItems =
     | "Backstage passes to a TAFKAL80ETC concert"
     | "Conjured Mana Cake"
 
-export class Item {
+
+export function createItem(name:ValidItems, sellIn:number,quality:number):Item
+{
+    return {name,sellIn,quality}
+}
+export type Item = {
     name: ValidItems;
     sellIn: number;
     quality: number;
-
-    constructor(name: ValidItems, sellIn: number, quality: number) {
-        this.name = name;
-        this.sellIn = sellIn;
-        this.quality = quality;
-    }
 }
 
 export class GildedRose {
@@ -43,7 +42,7 @@ export class GildedRose {
              
                
                 case "Backstage passes to a TAFKAL80ETC concert":
-                    this.updateBackStagePass(item);
+                    item = this.updateBackStagePass(item);
                     break
                 case "Sulfuras, Hand of Ragnaros":
                 default:
@@ -56,7 +55,8 @@ export class GildedRose {
     }
 
 
-    private static updateBackStagePass(item: Item) {
+    private static updateBackStagePass( item:Item):Item {
+       
         if (item.quality < 50) {
             item.quality = item.quality + 1
             if (item.sellIn < 11) {
@@ -74,6 +74,7 @@ export class GildedRose {
         if (item.sellIn < 0) {
             item.quality = item.quality - item.quality
         }
+        return item;
     }
 
     private static updateExterityAndDexterityVest(item: Item) {
