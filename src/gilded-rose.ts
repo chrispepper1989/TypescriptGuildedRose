@@ -11,6 +11,9 @@ type ValidItem = typeof validItems[number];
 function isValidItem(str: string): str is ValidItem {
     return !!validItems.find((lit) => str === lit);
 }
+const clamp = (number: number, 
+               min: number, max: number) => Math.min(Math.max(number, min), max)
+
 
 
 // Req: do not alter the Item class or Items (whoops)
@@ -34,7 +37,7 @@ export class GildedRose {
     }
     
     updateQuality() {
-        return GildedRose.updateItemsQuality(this.items);
+        return GildedRose.updateItemsQualityAndSellIn(this.items);
     }
 
 
@@ -45,52 +48,56 @@ export class GildedRose {
         const name:ValidItem = item.name;
         switch (name) {
             case "Aged Brie":
-                this.updateAgedBrie(item);
+                this.updateAgedBrieQualityAndSellIn(item);
                 break;
             case "Conjured Mana Cake":
-            case "Elixir of the Mongoose":
-            case "+5 Dexterity Vest":
-                this.updateExterityAndDexterityVest(item);
-                break;
+                this.updateConjuredManaCakeQualityAndSellIn(item);
+                break;          
 
 
             case "Backstage passes to a TAFKAL80ETC concert":
-                this.updateBackStagePass(item);
+                this.updateBackStagePassQualityAndSellIn(item);
                 break
             case "Sulfuras, Hand of Ragnaros":
+                //legendary do nothing
+                break;
             default:
-            //all other items, do nothing
+            case "Elixir of the Mongoose":
+            case "+5 Dexterity Vest":
+                this.updateNormalItemQualityAndSellIn(item);
+                break;
+           
 
         }
+        
+        
     }
-    private static updateItemsQuality(items:Item[]) {       
+    private static updateItemsQualityAndSellIn(items:Item[]) {       
 
         items.forEach(item => this.updateItem(item));
         return items;
     }
 
 
-    private static updateBackStagePass(item: Item) {
+    private static updateBackStagePassQualityAndSellIn(item: Item) {
+        //increases by 3 when there are 5 days or less
+        //2 when there are 10 days or less and
+        // otherwise 1 as normal
+        const qualityIncrease = item.sellIn < 6 ? 3
+            : item.sellIn < 11 ? 2 
+            : 1        
+                      
         if (item.quality < GildedRose.maxQuality) {
-            item.quality = item.quality + 1
-            if (item.sellIn < 11) {
-                if (item.quality < GildedRose.maxQuality) {
-                    item.quality = item.quality + 1
-                }
-            }
-            if (item.sellIn < 6) {
-                if (item.quality < GildedRose.maxQuality) {
-                    item.quality = item.quality + 1
-                }
-            }
+            item.quality += qualityIncrease;           
+    
         }
         item.sellIn = item.sellIn - 1;
         if (item.sellIn < 0) {
-            item.quality = item.quality - item.quality
+            item.quality = 0
         }
     }
 
-    private static updateExterityAndDexterityVest(item: Item) {
+    private static updateNormalItemQualityAndSellIn(item: Item) {
         if (item.quality > 0) {
             item.quality = item.quality - 1
         }
@@ -102,7 +109,7 @@ export class GildedRose {
         }
     }
     
-    private static updateAgedBrie(item: Item) {          
+    private static updateAgedBrieQualityAndSellIn(item: Item) {          
         
         if (item.quality < GildedRose.maxQuality) {
             item.quality = item.quality + 1            
@@ -115,5 +122,10 @@ export class GildedRose {
                 item.quality = item.quality + 1
             }
         }
+    }
+
+    public static updateConjuredManaCakeQualityAndSellIn(item: Item) {
+        //"Conjured" items degrade in Quality twice as fast as normal items
+        return this.updateNormalItemQualityAndSellIn(item);
     }
 }
