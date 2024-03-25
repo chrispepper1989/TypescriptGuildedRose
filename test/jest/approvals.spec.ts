@@ -1,7 +1,3 @@
-import { Item, GildedRose, createItem } from '@/ValidItems/gilded-rose';
-
-
-
 /**
  * This unit test uses [Jest Snapshot](https://goo.gl/fbAQLP).
  * 
@@ -11,6 +7,9 @@ import { Item, GildedRose, createItem } from '@/ValidItems/gilded-rose';
  *
  * I suggest choosing one style to develop and deleting the other.
  */
+import {createItem, GildedRose} from "@/gilded-rose";
+
+
 describe('Gilded Rose Approval (individual tests)', () => {
 
 describe('Items', () => {
