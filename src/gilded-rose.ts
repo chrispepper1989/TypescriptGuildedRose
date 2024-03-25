@@ -59,7 +59,14 @@ export class GildedRose {
             return;
         
         const name:ValidItem = item.name;
+        
+        if(name == "Sulfuras, Hand of Ragnaros")
+            // legendary item, do nothing
+            return;
+        
+        
         switch (name) {
+            
             case "Aged Brie":
                 this.updateAgedBrieQualityAndSellIn(item);
                 break;
@@ -71,9 +78,7 @@ export class GildedRose {
             case "Backstage passes to a TAFKAL80ETC concert":
                 this.updateBackStagePassQualityAndSellIn(item);
                 break
-            case "Sulfuras, Hand of Ragnaros":
-                //legendary do nothing
-                break;
+            
             default:
             case "Elixir of the Mongoose":
             case "+5 Dexterity Vest":
@@ -85,64 +90,66 @@ export class GildedRose {
         
         
     }
-    private static updateItemsQualityAndSellIn(items:Item[]) {       
-
+    private static updateItemsQualityAndSellIn(items:Item[]) {
         items.forEach(item => this.updateItem(item));
         return items;
     }
 
+    private static updateQuality(item: Item, qualityChange: number) {
+        item.quality += qualityChange
 
-    private static updateBackStagePassQualityAndSellIn(item: Item) {
-        //increases by 3 when there are 5 days or less
-        //2 when there are 10 days or less and
-        // otherwise 1 as normal
-        const qualityIncrease = item.sellIn < 6 ? 3
-            : item.sellIn < 11 ? 2 
-            : 1        
-                      
-        if (item.quality < GildedRose.maxIncreasableQuality) {
-            item.quality += qualityIncrease;           
-    
-        }
-        item.sellIn = item.sellIn - 1;
-        if (item.sellIn < 0) {
-            item.quality = 0
-        }
-    }
-
-   
-    public static updateNormalItemQualityAndSellIn(item: Item, dayPassed:number = 1, qualityChange:number = -1) {
-
-        item.sellIn -= dayPassed;
-
-        if(item.quality <= 0)
-            return;
-        
-        item.quality +=  qualityChange     
-        
         if (item.sellIn < 0) {
             item.quality += qualityChange
         }
-      
     }
     
+
+    private static updateBackStagePassQualityAndSellIn(item: Item) {
+
+        item.sellIn -= 1;
+        if (item.sellIn < 0) {
+            item.quality = 0
+            return;
+        }
+        if (item.quality >= GildedRose.maxIncreasableQuality) {
+            return
+        }
+        //increases by 3 when there are 5 days or less
+        //2 when there are 10 days or less and
+        // otherwise 1 as normal
+        const qualityIncrease = (item.sellIn+1) < 6 ? 3
+            : (item.sellIn+1) < 11 ? 2 
+            : 1
+        
+       
+        item.quality += qualityIncrease;
+    }
+   
+    public static updateNormalItemQualityAndSellIn(item: Item, qualityChange: number = -1) {
+
+        item.sellIn -= 1;
+
+        if(item.quality <= 0)
+            return;
+
+        this.updateQuality(item, qualityChange);
+
+    }
+    
+
     private static updateAgedBrieQualityAndSellIn(item: Item) {
         
-        item.sellIn = item.sellIn - 1;
+        item.sellIn -= 1;
 
         if(item.quality >= GildedRose.maxIncreasableQuality)
             return;
-                
-        item.quality = item.quality + 1        
-      
-        if (item.sellIn < 0) {
-            item.quality = item.quality + 1           
-        }
+
+        this.updateQuality(item, 1);
     }
 
     public static updateConjuredManaCakeQualityAndSellIn(item: Item) {
         //"Conjured" items degrade in Quality twice as fast as normal items
-        this.updateNormalItemQualityAndSellIn(item,1,-2);
+        this.updateNormalItemQualityAndSellIn(item, -2);
    
     }
 }

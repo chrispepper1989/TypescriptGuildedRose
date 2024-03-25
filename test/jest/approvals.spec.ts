@@ -25,9 +25,12 @@ describe('Items', () => {
       //update conjured once
       GildedRose.updateConjuredManaCakeQualityAndSellIn(conjured);
       //update normal twice
-      GildedRose.updateNormalItemQualityAndSellIn(normalItem,1);
-      GildedRose.updateNormalItemQualityAndSellIn(normalItem,0);
-      
+
+      const temp = normalItem.sellIn;
+      GildedRose.updateNormalItemQualityAndSellIn(normalItem);
+      normalItem.sellIn = temp; // reset the day
+      GildedRose.updateNormalItemQualityAndSellIn(normalItem);
+     
       expect(conjured.quality).toBe(normalItem.quality)
     }
   });
