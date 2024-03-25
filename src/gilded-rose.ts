@@ -32,9 +32,18 @@ export class Item {
     }
 }
 
+type QualityMutator =
+{
+    qualityMultiplier: number;
+    qualityChange: 3 | 2 | 1 | -1;
+}
+
+
+
 export class GildedRose {
     items: Array<Item>;
-    private static readonly maxQuality = 50;
+    //technically items can be above max quality if they stat there
+    private static readonly maxIncreasableQuality = 50;
     constructor(items = [] as Array<Item>) {
         this.items = items;
     }
@@ -42,8 +51,9 @@ export class GildedRose {
     updateQuality() {
         return GildedRose.updateItemsQualityAndSellIn(this.items);
     }
-
-
+    
+    
+    
     static updateItem(item: Item) {
         if(!isValidItem(item.name))
             return;
@@ -90,7 +100,7 @@ export class GildedRose {
             : item.sellIn < 11 ? 2 
             : 1        
                       
-        if (item.quality < GildedRose.maxQuality) {
+        if (item.quality < GildedRose.maxIncreasableQuality) {
             item.quality += qualityIncrease;           
     
         }
@@ -100,35 +110,39 @@ export class GildedRose {
         }
     }
 
-    public static updateNormalItemQualityAndSellIn(item: Item, dayPassed:number = 1, qualityDegrade:number = 1) {
-        item.quality -=  qualityDegrade
-        
+   
+    public static updateNormalItemQualityAndSellIn(item: Item, dayPassed:number = 1, qualityChange:number = -1) {
+
         item.sellIn -= dayPassed;
+
+        if(item.quality <= 0)
+            return;
+        
+        item.quality +=  qualityChange     
+        
         if (item.sellIn < 0) {
-            item.quality = item.quality - qualityDegrade
+            item.quality += qualityChange
         }
-        if(item.quality < 0)
-            item.quality = 0;
+      
     }
     
-    private static updateAgedBrieQualityAndSellIn(item: Item) {          
+    private static updateAgedBrieQualityAndSellIn(item: Item) {
         
-        if (item.quality < GildedRose.maxQuality) {
-            item.quality = item.quality + 1            
-        }
-                
         item.sellIn = item.sellIn - 1;
+
+        if(item.quality >= GildedRose.maxIncreasableQuality)
+            return;
+                
+        item.quality = item.quality + 1        
       
         if (item.sellIn < 0) {
-            if (item.quality < GildedRose.maxQuality) {
-                item.quality = item.quality + 1
-            }
+            item.quality = item.quality + 1           
         }
     }
 
     public static updateConjuredManaCakeQualityAndSellIn(item: Item) {
         //"Conjured" items degrade in Quality twice as fast as normal items
-        this.updateNormalItemQualityAndSellIn(item,1,2);
+        this.updateNormalItemQualityAndSellIn(item,1,-2);
    
     }
 }
