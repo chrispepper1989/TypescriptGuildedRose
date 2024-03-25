@@ -15,6 +15,9 @@ const clamp = (number: number,
                min: number, max: number) => Math.min(Math.max(number, min), max)
 
 
+export function createItem(name: ValidItem, sellIn: number, quality: number) {
+    return new Item(name,sellIn,quality)
+}
 
 // Req: do not alter the Item class or Items (whoops)
 export class Item {
@@ -97,7 +100,7 @@ export class GildedRose {
         }
     }
 
-    private static updateNormalItemQualityAndSellIn(item: Item) {
+    public static updateNormalItemQualityAndSellIn(item: Item) {
         if (item.quality > 0) {
             item.quality = item.quality - 1
         }

@@ -1,4 +1,6 @@
-import { Item, GildedRose } from '@/gilded-rose';
+import { Item, GildedRose, createItem } from '@/gilded-rose';
+
+
 
 /**
  * This unit test uses [Jest Snapshot](https://goo.gl/fbAQLP).
@@ -13,19 +15,35 @@ describe('Gilded Rose Approval (individual tests)', () => {
 
 describe('Items', () => {
  
+  test("Conjured Mana Cake degrades twice as fast as normal item", () =>
+  {
+    const normalItem = createItem("Elixir of the Mongoose", 10,100);
+    const conjured = createItem("Conjured Mana Cake", 10,100);
+    
+    for(let i = 0; i < 50; ++i)
+    {
+      //update conjured once
+      GildedRose.updateConjuredManaCakeQualityAndSellIn(conjured);
+      //update normal twice
+      GildedRose.updateNormalItemQualityAndSellIn(normalItem);
+      GildedRose.updateNormalItemQualityAndSellIn(normalItem);
+      expect(conjured.quality).toBe(normalItem.quality)
+    }
+  });
   /* coverage for all known items over 30 days*/
   test.each([10,30,40])
   ('when given all the known items over %p days, return items based on current rules  ', (days:number) => {
 
     const sentItems = [
-      new Item("+5 Dexterity Vest", 10, 20), //
-      new Item("Aged Brie", 2, 0), //
-      new Item("Elixir of the Mongoose", 5, 7), //
-      new Item("Sulfuras, Hand of Ragnaros", 0, 80), //
-      new Item("Sulfuras, Hand of Ragnaros", -1, 80),
-      new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
-      new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
-      new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49)]
+      createItem("+5 Dexterity Vest", 10, 20), //
+      createItem("Aged Brie", 2, 0), //
+      createItem("Elixir of the Mongoose", 5, 7), //
+      createItem("Sulfuras, Hand of Ragnaros", 0, 80), //
+      createItem("Sulfuras, Hand of Ragnaros", -1, 80),
+      createItem("Backstage passes to a TAFKAL80ETC concert", 15, 20),
+      createItem("Backstage passes to a TAFKAL80ETC concert", 10, 49),
+      createItem("Backstage passes to a TAFKAL80ETC concert", 5, 49),
+      createItem("Conjured Mana Cake", 5,50)]
     
     const gildedRose = new GildedRose(sentItems);
     
