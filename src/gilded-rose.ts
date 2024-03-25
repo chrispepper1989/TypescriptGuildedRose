@@ -128,7 +128,7 @@ export class GildedRose {
 
     public static updateConjuredManaCakeQualityAndSellIn(item: Item) {
         //"Conjured" items degrade in Quality twice as fast as normal items
-        this.updateNormalItemQualityAndSellIn(item);
+        this.updateNormalItemQualityAndSellIn(item,1,2);
    
     }
 }
