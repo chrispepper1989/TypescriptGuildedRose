@@ -48,18 +48,18 @@ export class GildedRose {
     }
 
     updateQuality() : Readonly<Array<Item>> {
-        const newItems = GildedRose.updateItemsQualityAndSellIn(this.items);
+        const newItems = GildedRose.getItemsAfterDayPassed(this.items);
         //update internal items
         this.items = newItems;
         return newItems;
     }
 
-    private static updateItemsQualityAndSellIn(items: Readonly<Array<Item>>) {
-        //items.forEach(item => this.updateItem(item));
-        return items.map( item => this.updateItem(item));
+    public static getItemsAfterDayPassed(items: Readonly<Array<Item>>) : Item[] {
+        
+        return items.map( item => this.getItemAfterDayPassed(item));
     }
 
-    static updateItem(item: Readonly<Item>) : Item {
+    static getItemAfterDayPassed(item: Readonly<Item>) : Item {
         if (!isValidItem(item.name))
             return item;
 
@@ -103,9 +103,8 @@ export class GildedRose {
             {
                 const newQuality = this.getNewNormalItemQuality({sellIn:newSellIn, quality:item.quality, name:item.name});
                 return new Item(item.name, newSellIn, newQuality );
-                }
-        }
-        
+            }
+        }       
 
     }
 
@@ -117,7 +116,7 @@ export class GildedRose {
     }
 
 
-    private static getNewBackStagePassQuality(currentQuality:number, currentSellIn:number, newSellIn:number) {
+    private static getNewBackStagePassQuality(currentQuality:number, currentSellIn:number, newSellIn:number) :number {
 
         /*
         Backstage passes", like aged brie, increases in Quality as its SellIn value approaches;
@@ -140,7 +139,7 @@ export class GildedRose {
                 : daysRemaining < 11 ? 2
                     : 1
 
-        return currentQuality + qualityIncrease;
+        return currentQuality + qualityIncrease;       
       
     }
 
