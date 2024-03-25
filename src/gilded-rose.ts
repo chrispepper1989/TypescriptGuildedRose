@@ -112,15 +112,8 @@ export class GildedRose {
  
 
     private static updateQuality(item: Readonly<Item>, qualityChange: number) :number {
-        let newQuality = item.quality + qualityChange;
-        if(item.sellIn < 0)
-        {
-            newQuality +=qualityChange;
-        }
-            
-        return newQuality;
-        //return item.sellIn < 0 ?  item.quality + (qualityChange*2) : item.quality + qualityChange;     
-        
+        //when the sellin is less than 0 (past best before) quality degrades twice as fast
+        return item.sellIn < 0 ? item.quality + (qualityChange*2) : item.quality + qualityChange;        
     }
 
 
@@ -152,7 +145,7 @@ export class GildedRose {
     }
 
     public static getNewNormalItemQuality(item: Readonly<Item>, qualityChange: number = -1) :number {
-        
+         
         if (item.quality <= 0)
             return item.quality;
 

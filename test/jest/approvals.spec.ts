@@ -14,6 +14,7 @@ describe('Gilded Rose Approval (individual tests)', () => {
 
 describe('Items', () => {
  
+  //todo this test is probably not needed now
   test("Conjured Mana Cake degrades twice as fast as normal item", () =>
   {
     const normalItem = createItem("Elixir of the Mongoose", 10,100);
