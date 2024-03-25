@@ -1,4 +1,4 @@
-import { Item, GildedRose, createItem } from '@/gilded-rose';
+import { Item, GildedRose, createItem } from '@/ValidItems/gilded-rose';
 
 
 

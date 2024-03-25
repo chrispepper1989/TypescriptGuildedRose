@@ -1,3 +1,6 @@
+/*
+Helper functions and types to remove string based errors
+ */
 const validItems =
     <const>["+5 Dexterity Vest"
         , "Aged Brie"
@@ -12,13 +15,14 @@ function isValidItem(str: string): str is ValidItem {
     return !!validItems.find((lit) => str === lit);
 }
 
-const clamp = (number: number,
-               min: number, max: number) => Math.min(Math.max(number, min), max)
-
 
 export function createItem(name: ValidItem, sellIn: number, quality: number) {
     return new Item(name, sellIn, quality)
 }
+
+/*
+End of helper functions
+ */
 
 // Req: do not alter the Item class or Items (whoops)
 export class Item {
@@ -60,7 +64,7 @@ export class GildedRose {
 
         const name: ValidItem = item.name;
 
-        if (name == "Sulfuras, Hand of Ragnaros")
+        if (name === "Sulfuras, Hand of Ragnaros")
             // legendary item, do nothing
             return;
 
@@ -73,21 +77,16 @@ export class GildedRose {
             case "Conjured Mana Cake":
                 this.updateConjuredManaCakeQuality(item);
                 break;
-
-
             case "Backstage passes to a TAFKAL80ETC concert":
                 this.updateBackStagePassQuality(item);
                 break
-
-            default:
+            
             case "Elixir of the Mongoose":
             case "+5 Dexterity Vest":
+            default:
                 this.updateNormalItemQuality(item);
                 break;
-
-
         }
-
 
     }
 
@@ -107,6 +106,12 @@ export class GildedRose {
 
     private static updateBackStagePassQuality(item: Item) {
 
+        /*
+        Backstage passes", like aged brie, increases in Quality as its SellIn value approaches;
+
+        Quality increases by 2 when there are 10 days or less and by 3 when there are 5 days or less but
+        Quality drops to 0 after the concert
+         */
         if (item.sellIn < 0) {
             item.quality = 0
             return;
@@ -136,7 +141,7 @@ export class GildedRose {
     }
 
     private static updateAgedBrieQuality(item: Item) {
-
+        //"Aged Brie" actually increases in Quality the older it gets
         if (item.quality >= GildedRose.maxIncreasableQuality)
             return;
 
