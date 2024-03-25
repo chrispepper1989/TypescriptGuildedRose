@@ -23,13 +23,12 @@ describe('Items', () => {
     for(let i = 0; i < 100; ++i)
     {
       //update conjured once
-      GildedRose.updateConjuredManaCakeQualityAndSellIn(conjured);
+      conjured.sellIn -= 1;
+      GildedRose.updateConjuredManaCakeQuality(conjured);
       //update normal twice
-
-      const temp = normalItem.sellIn;
-      GildedRose.updateNormalItemQualityAndSellIn(normalItem);
-      normalItem.sellIn = temp; // reset the day
-      GildedRose.updateNormalItemQualityAndSellIn(normalItem);
+      normalItem.sellIn -= 1;
+      GildedRose.updateNormalItemQuality(normalItem);
+      GildedRose.updateNormalItemQuality(normalItem);
      
       expect(conjured.quality).toBe(normalItem.quality)
     }
