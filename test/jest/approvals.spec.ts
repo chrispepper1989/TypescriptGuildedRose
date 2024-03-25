@@ -23,11 +23,11 @@ describe('Items', () => {
     {
       //update conjured once
       conjured.sellIn -= 1;
-      GildedRose.updateConjuredManaCakeQuality(conjured);
+      conjured.quality = GildedRose.getNewConjuredManaCakeQuality(conjured);
       //update normal twice
       normalItem.sellIn -= 1;
-      GildedRose.updateNormalItemQuality(normalItem);
-      GildedRose.updateNormalItemQuality(normalItem);
+      normalItem.quality = GildedRose.getNewNormalItemQuality(normalItem);
+      normalItem.quality = GildedRose.getNewNormalItemQuality(normalItem);
      
       expect(conjured.quality).toBe(normalItem.quality)
     }

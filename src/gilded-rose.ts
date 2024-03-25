@@ -70,13 +70,14 @@ export class GildedRose {
             return item;
 
     
+        // all other items assume day has passed and sellin is reduced
         const newSellIn = item.sellIn - 1;
      
         
         switch (name) {
 
             case "Aged Brie": {
-                const newQuality = this.updateAgedBrieQuality({
+                const newQuality = this.getNewAgedBrieQuality({
                     sellIn: newSellIn,
                     quality: item.quality,
                     name: item.name
@@ -84,7 +85,7 @@ export class GildedRose {
                 return new Item(item.name, newSellIn, newQuality);
             }
             case "Conjured Mana Cake": {
-                const newQuality = this.updateConjuredManaCakeQuality({
+                const newQuality = this.getNewConjuredManaCakeQuality({
                     sellIn: newSellIn,
                     quality: item.quality,
                     name: item.name
@@ -92,7 +93,7 @@ export class GildedRose {
                 return new Item(item.name, newSellIn, newQuality);
             }
             case "Backstage passes to a TAFKAL80ETC concert": {
-                const newQuality = this.updateBackStagePassQuality(item.quality, item.sellIn,newSellIn);
+                const newQuality = this.getNewBackStagePassQuality(item.quality, item.sellIn,newSellIn);
                 return new Item(item.name, newSellIn, newQuality);
             }
             
@@ -100,7 +101,7 @@ export class GildedRose {
             case "+5 Dexterity Vest":
             default:
             {
-                const newQuality = this.updateNormalItemQuality({sellIn:newSellIn, quality:item.quality, name:item.name});
+                const newQuality = this.getNewNormalItemQuality({sellIn:newSellIn, quality:item.quality, name:item.name});
                 return new Item(item.name, newSellIn, newQuality );
                 }
         }
@@ -123,7 +124,7 @@ export class GildedRose {
     }
 
 
-    private static updateBackStagePassQuality(currentQuality:number, currentSellIn:number, newSellIn:number) {
+    private static getNewBackStagePassQuality(currentQuality:number, currentSellIn:number, newSellIn:number) {
 
         /*
         Backstage passes", like aged brie, increases in Quality as its SellIn value approaches;
@@ -150,7 +151,7 @@ export class GildedRose {
       
     }
 
-    public static updateNormalItemQuality(item: Readonly<Item>, qualityChange: number = -1) :number {
+    public static getNewNormalItemQuality(item: Readonly<Item>, qualityChange: number = -1) :number {
         
         if (item.quality <= 0)
             return item.quality;
@@ -159,7 +160,7 @@ export class GildedRose {
 
     }
 
-    private static updateAgedBrieQuality(item: Readonly<Item>):number {
+    private static getNewAgedBrieQuality(item: Readonly<Item>):number {
         //"Aged Brie" actually increases in Quality the older it gets
         if (item.quality >= GildedRose.maxIncreasableQuality)
             return item.quality;
@@ -167,9 +168,9 @@ export class GildedRose {
         return this.updateQuality(item, 1);
     }
 
-    public static updateConjuredManaCakeQuality(item: Readonly<Item>):number {
+    public static getNewConjuredManaCakeQuality(item: Readonly<Item>):number {
         //"Conjured" items degrade in Quality twice as fast as normal items
-        return this.updateNormalItemQuality(item, -2);
+        return this.getNewNormalItemQuality(item, -2);
 
     }
 }
