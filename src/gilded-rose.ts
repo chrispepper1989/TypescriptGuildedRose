@@ -71,27 +71,40 @@ export class GildedRose {
 
     
         const newSellIn = item.sellIn - 1;
-        let newQuality = item.quality;
+     
         
         switch (name) {
 
-            case "Aged Brie":
-                newQuality = this.updateAgedBrieQuality({sellIn:newSellIn, quality:item.quality, name:item.name});
-                break;
-            case "Conjured Mana Cake":
-                newQuality = this.updateConjuredManaCakeQuality({sellIn:newSellIn, quality:item.quality, name:item.name});
-                break;
-            case "Backstage passes to a TAFKAL80ETC concert":
-                newQuality = this.updateBackStagePassQuality( item.quality,newSellIn);
-                break
+            case "Aged Brie": {
+                const newQuality = this.updateAgedBrieQuality({
+                    sellIn: newSellIn,
+                    quality: item.quality,
+                    name: item.name
+                });
+                return new Item(item.name, newSellIn, newQuality);
+            }
+            case "Conjured Mana Cake": {
+                const newQuality = this.updateConjuredManaCakeQuality({
+                    sellIn: newSellIn,
+                    quality: item.quality,
+                    name: item.name
+                });
+                return new Item(item.name, newSellIn, newQuality);
+            }
+            case "Backstage passes to a TAFKAL80ETC concert": {
+                const newQuality = this.updateBackStagePassQuality(item.quality, item.sellIn,newSellIn);
+                return new Item(item.name, newSellIn, newQuality);
+            }
             
             case "Elixir of the Mongoose":
             case "+5 Dexterity Vest":
             default:
-                newQuality = this.updateNormalItemQuality({sellIn:newSellIn, quality:item.quality, name:item.name});
-                break;
+            {
+                const newQuality = this.updateNormalItemQuality({sellIn:newSellIn, quality:item.quality, name:item.name});
+                return new Item(item.name, newSellIn, newQuality );
+                }
         }
-        return new Item(item.name, newSellIn, newQuality );
+        
 
     }
 
@@ -110,7 +123,7 @@ export class GildedRose {
     }
 
 
-    private static updateBackStagePassQuality(currentQuality:number, newSellin:number) {
+    private static updateBackStagePassQuality(currentQuality:number, currentSellIn:number, newSellIn:number) {
 
         /*
         Backstage passes", like aged brie, increases in Quality as its SellIn value approaches;
@@ -118,7 +131,7 @@ export class GildedRose {
         Quality increases by 2 when there are 10 days or less and by 3 when there are 5 days or less but
         Quality drops to 0 after the concert
          */
-        if (newSellin < 0) {
+        if (newSellIn < 0) {
             return 0;
         }
         if (currentQuality >= GildedRose.maxIncreasableQuality) {
@@ -127,7 +140,7 @@ export class GildedRose {
         //increases by 3 when there are 5 days or less
         //2 when there are 10 days or less and
         // otherwise 1 as normal
-        const daysRemaining = newSellin + 1;
+        const daysRemaining = currentSellIn;
         const qualityIncrease =
             daysRemaining < 6 ? 3
                 : daysRemaining < 11 ? 2
