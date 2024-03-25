@@ -100,16 +100,15 @@ export class GildedRose {
         }
     }
 
-    public static updateNormalItemQualityAndSellIn(item: Item) {
-        if (item.quality > 0) {
-            item.quality = item.quality - 1
-        }
-        item.sellIn = item.sellIn - 1;
+    public static updateNormalItemQualityAndSellIn(item: Item, dayPassed:number = 1, qualityDegrade:number = 1) {
+        item.quality -=  qualityDegrade
+        
+        item.sellIn -= dayPassed;
         if (item.sellIn < 0) {
-            if (item.quality > 0) {
-                item.quality = item.quality - 1
-            }
+            item.quality = item.quality - qualityDegrade
         }
+        if(item.quality < 0)
+            item.quality = 0;
     }
     
     private static updateAgedBrieQualityAndSellIn(item: Item) {          
@@ -129,6 +128,7 @@ export class GildedRose {
 
     public static updateConjuredManaCakeQualityAndSellIn(item: Item) {
         //"Conjured" items degrade in Quality twice as fast as normal items
-        return this.updateNormalItemQualityAndSellIn(item);
+        this.updateNormalItemQualityAndSellIn(item);
+   
     }
 }

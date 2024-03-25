@@ -20,18 +20,19 @@ describe('Items', () => {
     const normalItem = createItem("Elixir of the Mongoose", 10,100);
     const conjured = createItem("Conjured Mana Cake", 10,100);
     
-    for(let i = 0; i < 50; ++i)
+    for(let i = 0; i < 100; ++i)
     {
       //update conjured once
       GildedRose.updateConjuredManaCakeQualityAndSellIn(conjured);
       //update normal twice
-      GildedRose.updateNormalItemQualityAndSellIn(normalItem);
-      GildedRose.updateNormalItemQualityAndSellIn(normalItem);
+      GildedRose.updateNormalItemQualityAndSellIn(normalItem,1);
+      GildedRose.updateNormalItemQualityAndSellIn(normalItem,0);
+      
       expect(conjured.quality).toBe(normalItem.quality)
     }
   });
   /* coverage for all known items over 30 days*/
-  test.each([10,30,40])
+  test.each([1,5, 10,20, 30])
   ('when given all the known items over %p days, return items based on current rules  ', (days:number) => {
 
     const sentItems = [
@@ -43,11 +44,12 @@ describe('Items', () => {
       createItem("Backstage passes to a TAFKAL80ETC concert", 15, 20),
       createItem("Backstage passes to a TAFKAL80ETC concert", 10, 49),
       createItem("Backstage passes to a TAFKAL80ETC concert", 5, 49),
-      createItem("Conjured Mana Cake", 5,50)]
+      createItem("+5 Dexterity Vest", 20, 100),
+      createItem("Conjured Mana Cake", 20,100)]
     
     const gildedRose = new GildedRose(sentItems);
     
-    Array.from({ length: days }, x => gildedRose.updateQuality())
+    Array.from({ length: days-1 }, x => gildedRose.updateQuality())
     
     const finalItems = gildedRose.updateQuality();
     expect(finalItems).toMatchSnapshot();
